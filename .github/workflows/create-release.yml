@@ -1,0 +1,26 @@
+name: Create Release
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'git ref to make the branch off of (sha, tag, etc.)'
+        required: true
+      dry-run:
+        description: 'This parameter avoids writing any tag and changelog into the repo (by default, it is set as true)'
+        required: false
+        default: true
+        type: boolean
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.inputs.ref }}
+
+      - name: Test Boolean Input
+        if: github.event.inputs.dry-run == 'false'
+        run: echo "${{ github.event.inputs.dry-run }}"
+  
