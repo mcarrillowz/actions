@@ -1,0 +1,13 @@
+name: Paths Trigger
+on:
+  push:
+    paths:
+      - 'images/**'
+    branches:
+      - main
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
